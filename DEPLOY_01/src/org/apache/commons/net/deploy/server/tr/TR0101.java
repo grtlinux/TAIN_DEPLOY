@@ -149,14 +149,14 @@ public class TR0101 {
 			 * 3. execute job
 			 */
 			
-			String strKeyTime = "";
+			String strDeployTime = "";
 			
 			if (flag) {
 				String[] arrParams = new String(this.body).split(";");
 				String trCmd = arrParams[0];
-				strKeyTime = arrParams[1];
+				strDeployTime = arrParams[1];
 				
-				this.execLog = this.execLog.replaceAll("YYYYMMDDHHMMSS", strKeyTime);
+				this.execLog = this.execLog.replaceAll("YYYYMMDDHHMMSS", strDeployTime);
 				if (flag) log.debug(">>>>> exec log = " + this.execLog);
 			}
 
@@ -166,7 +166,7 @@ public class TR0101 {
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 
-				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strKeyTime}, new FileWriter(this.execLog), true);
+				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
 			}
 
 			if (flag) {

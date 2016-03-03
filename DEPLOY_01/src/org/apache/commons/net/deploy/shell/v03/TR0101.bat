@@ -12,16 +12,16 @@ set JOB_HOME=N:\TEMP\deploy\client
 cd %JOB_HOME%
 
 :: ----------------------------------------------------------------------------
-:: KEY_TIME
+:: DEPLOY_TIME
 
 if "%1" == "" (
-	:: set KEY_TIME=NO_KEY
-	set KEY_TIME=00000000-000000
+	:: set DEPLOY_TIME=NO_KEY
+	set DEPLOY_TIME=00000000-000000
 ) else (
-	set KEY_TIME=%1
+	set DEPLOY_TIME=%1
 )
 
-echo KEY_TIME = %KEY_TIME%
+echo DEPLOY_TIME = %DEPLOY_TIME%
 
 :: ----------------------------------------------------------------------------
 :: version check
@@ -38,7 +38,7 @@ cmd /c mvn --version
 :: ----------------------------------------------------------------------------
 :: export
 
-del %JOB_HOME%\SASEMARTCMS-1.0.0-%KEY_TIME%.war
+del %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
 
 rmdir /S /Q   %JOB_HOME%\SASEMARTCMS
 
@@ -73,7 +73,7 @@ cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4      
 
 xcopy /Y ..\conf\pom.xml SASEMARTCMS
 
-echo %KEY_TIME% > SASEMARTCMS\%KEY_TIME%
+echo %DEPLOY_TIME% > SASEMARTCMS\%DEPLOY_TIME%
 
 cmd /c mvn -file  %JOB_HOME%\SASEMARTCMS       clean install
 
@@ -83,7 +83,7 @@ echo ########################## MAVEN COMPILE SUCCESS ##########################
 :: ----------------------------------------------------------------------------
 :: finish
 
-move %JOB_HOME%\SASEMARTCMS\target\SASEMARTCMS-1.0.0.war %JOB_HOME%\SASEMARTCMS-1.0.0-%KEY_TIME%.war
+move %JOB_HOME%\SASEMARTCMS\target\SASEMARTCMS-1.0.0.war %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
 
 echo ########################## MOVE SUCCESS ###########################
 
@@ -92,5 +92,5 @@ echo ########################## MOVE SUCCESS ###########################
 
 :END
 
-echo ########################## ALL SUCCESS [ TR0101.bat ] [ %KEY_TIME% ] ###########################
+echo ########################## ALL SUCCESS [ TR0101.bat ] [ %DEPLOY_TIME% ] ###########################
 

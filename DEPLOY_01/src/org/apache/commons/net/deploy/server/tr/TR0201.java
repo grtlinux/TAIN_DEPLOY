@@ -146,7 +146,7 @@ public class TR0201 {
 			
 			String trCmd = null;
 			String strFileSize = null;
-			String strKeyTime = null;
+			String strDeployTime = null;
 			
 			if (flag) {
 				// get transfer informations
@@ -154,10 +154,10 @@ public class TR0201 {
 				String[] arrParams = new String(this.body).split(";");
 				trCmd = arrParams[0];
 				strFileSize = arrParams[1];
-				strKeyTime = arrParams[2];
+				strDeployTime = arrParams[2];
 				
 				this.fileSize = Long.parseLong(strFileSize);
-				this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", strKeyTime);
+				this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", strDeployTime);
 
 				if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
 				if (flag) log.debug(String.format("fileName = %s", this.fileName));
