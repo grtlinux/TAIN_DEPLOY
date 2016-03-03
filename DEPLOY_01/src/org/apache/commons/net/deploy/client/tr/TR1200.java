@@ -21,6 +21,8 @@ package org.apache.commons.net.deploy.client.tr;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.Socket;
 import java.util.ResourceBundle;
 
@@ -43,11 +45,11 @@ import org.apache.commons.net.deploy.common.ParamMap;
  * @author taincokr
  *
  */
-public class TR0500 extends Thread {
+public class TR1200 extends Thread {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0500.class);
+	private static final Logger log = Logger.getLogger(TR1200.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,11 +67,13 @@ public class TR0500 extends Thread {
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
 
+	private String fileName = null;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public TR0500() throws Exception {
+	public TR1200() throws Exception {
 		
 		if (flag) {
 			/*
@@ -85,14 +89,19 @@ public class TR0500 extends Thread {
 			/*
 			 * parameters
 			 */
-			this.host = ParamMap.getInstance().get("tain.server.host");
+			this.host = ParamMap.getInstance().get("tain.server.app01.host");
 			if (this.host == null) {
-				this.host = this.resourceBundle.getString("tain.server.host");
+				this.host = this.resourceBundle.getString("tain.server.app01.host");
 			}
 
-			this.port = ParamMap.getInstance().get("tain.server.port");
+			this.port = ParamMap.getInstance().get("tain.server.app01.port");
 			if (this.port == null) {
-				this.port = this.resourceBundle.getString("tain.server.port");
+				this.port = this.resourceBundle.getString("tain.server.app01.port");
+			}
+			
+			this.fileName = ParamMap.getInstance().get("tain.client.deploy.file.name");
+			if (this.fileName == null) {
+				this.fileName = this.resourceBundle.getString("tain.client.deploy.file.name");
 			}
 		}
 		
@@ -114,6 +123,7 @@ public class TR0500 extends Thread {
 			log.debug(">>>>> host = " + this.host);
 			log.debug(">>>>> port = " + this.port);
 			log.debug(">>>>> trCode = " + this.trCode);
+			log.debug(">>>>> file = " + this.fileName);
 			log.debug("Connection .....");
 		}
 	}
@@ -142,18 +152,24 @@ public class TR0500 extends Thread {
 			try {
 				
 				byte[] header = null;
-				byte[] data = null;
-				int dataLen = 0;
+				byte[] body = null;
+				int bodyLen = 0;
 				
 				if (flag) {
 					/*
 					 * 1. pre job
 					 */
 					
-					data = String.format("%s;%s", "RUN_TR0501", ParamMap.getInstance().get("tain.deploy.time")).getBytes("EUC-KR");
-					dataLen = data.length;
+					if (flag) {
+						// set fileName from YYYYMMDDHHMMSS to tain.deploy.time.
+						this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", ParamMap.getInstance().get("tain.deploy.time"));
+						if (flag) log.debug(">>>>> file = " + this.fileName);
+					}
 					
-					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", dataLen, new String(data)));
+					body = String.format("%s;%015d;%s", "FILE_TRANSFER", getFileSize(), ParamMap.getInstance().get("tain.deploy.time")).getBytes("EUC-KR");
+					bodyLen = body.length;
+					
+					if (flag) log.debug(String.format("-- 1. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 				if (flag) {
@@ -163,7 +179,7 @@ public class TR0500 extends Thread {
 					
 					header = PacketHeader.makeBytes();
 					PacketHeader.TR_CODE.setVal(header, trCode);
-					PacketHeader.BODY_LEN.setVal(header, String.valueOf(dataLen));
+					PacketHeader.BODY_LEN.setVal(header, String.valueOf(bodyLen));
 					
 					this.dos.write(header, 0, header.length);
 					if (flag) log.debug(String.format("-> 2. REQ SEND HEADER [%s]", new String(header)));
@@ -174,8 +190,8 @@ public class TR0500 extends Thread {
 					 * 3. send data
 					 */
 					
-					this.dos.write(data, 0, dataLen);
-					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(data)));
+					this.dos.write(body, 0, bodyLen);
+					if (flag) log.debug(String.format("-> 3. REQ SEND DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -183,7 +199,8 @@ public class TR0500 extends Thread {
 					 * 4. execute job
 					 */
 					
-					if (flag) log.debug(String.format("-- 4. don't execute local job"));
+					if (flag) log.debug(String.format("-- 4. execute local job -> FILE TRANSFER JOB"));
+					executeTrJob();
 				}
 				
 				if (flag) {
@@ -194,7 +211,7 @@ public class TR0500 extends Thread {
 					header = recv(header.length);
 					if (flag) log.debug(String.format("<- 5. RES RECV HEADER [%s]", new String(header)));
 					
-					dataLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
+					bodyLen = Integer.parseInt(PacketHeader.BODY_LEN.getString(header));
 				}
 				
 				if (flag) {
@@ -202,8 +219,8 @@ public class TR0500 extends Thread {
 					 * 6. recv data
 					 */
 					
-					data = recv(dataLen);
-					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(data)));
+					body = recv(bodyLen);
+					if (flag) log.debug(String.format("<- 6. RES RECV DATA   [%s]", new String(body)));
 				}
 				
 				if (flag) {
@@ -211,7 +228,7 @@ public class TR0500 extends Thread {
 					 * 7. post job
 					 */
 					
-					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", dataLen, new String(data)));
+					if (flag) log.debug(String.format("-- 7. DATA [%d:%s]", bodyLen, new String(body)));
 				}
 				
 			} catch (Exception e) {
@@ -253,4 +270,55 @@ public class TR0500 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	private long getFileSize() throws Exception {
+		
+		long fileSize = -1;
+		
+		if (flag) {
+			File file = new File(this.fileName);
+			fileSize = file.length();
+		}
+		
+		return fileSize;
+	}
+	
+	private void executeTrJob() throws Exception {
+		
+		if (flag) {
+			/*
+			 * file transfer
+			 */
+			FileInputStream fis = null;
+			
+			try {
+				
+				fis = new FileInputStream(this.fileName);
+				
+				byte[] buf = new byte[10240];
+
+				for (int i=1; ; i++) {
+					int readed = fis.read(buf);
+					if (readed < 0)
+						break;
+					
+					this.dos.write(buf, 0, readed);
+					
+					if (flag) {
+						System.out.print("#");
+						if (i % 200 == 0)
+							System.out.println();
+					}
+				}
+				
+				if (flag) System.out.println();
+
+			} catch (Exception e) {
+				// e.printStackTrace();
+				throw e;
+			} finally {
+				if (fis != null) try { fis.close(); } catch (Exception e) {}
+			}
+		}
+	}
 }

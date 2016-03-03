@@ -26,6 +26,10 @@ import org.apache.commons.net.deploy.client.tr.TR0000;
 import org.apache.commons.net.deploy.client.tr.TR0100;
 import org.apache.commons.net.deploy.client.tr.TR0200;
 import org.apache.commons.net.deploy.client.tr.TR0500;
+import org.apache.commons.net.deploy.client.tr.TR1200;
+import org.apache.commons.net.deploy.client.tr.TR1500;
+import org.apache.commons.net.deploy.client.tr.TR2200;
+import org.apache.commons.net.deploy.client.tr.TR2500;
 import org.apache.commons.net.deploy.common.ParamMap;
 import org.apache.log4j.Logger;
 
@@ -92,7 +96,6 @@ public class TainClientMain {
 		if (flag) {
 			log.debug(">>>>> " + className);
 			log.debug(">>>>> seqStart=" + seqStart + ", seqFinish=" + seqFinish);
-			System.exit(0);
 		}
 	}
 	
@@ -122,6 +125,7 @@ public class TainClientMain {
 				if (flag) log.debug("########## START ########## [trCode:" + val + "]");
 
 				switch (val) {
+				// client
 				case "TR0000":
 					thr = new TR0000();
 					thr.start();
@@ -132,6 +136,8 @@ public class TainClientMain {
 					thr.start();
 					thr.join();
 					break;
+					
+				// sample
 				case "TR0200":
 					thr = new TR0200();
 					thr.start();
@@ -139,6 +145,30 @@ public class TainClientMain {
 					break;
 				case "TR0500":
 					thr = new TR0500();
+					thr.start();
+					thr.join();
+					break;
+				
+				// app01
+				case "TR1200":
+					thr = new TR1200();
+					thr.start();
+					thr.join();
+					break;
+				case "TR1500":
+					thr = new TR1500();
+					thr.start();
+					thr.join();
+					break;
+
+				// app02
+				case "TR2200":
+					thr = new TR2200();
+					thr.start();
+					thr.join();
+					break;
+				case "TR2500":
+					thr = new TR2500();
 					thr.start();
 					thr.join();
 					break;

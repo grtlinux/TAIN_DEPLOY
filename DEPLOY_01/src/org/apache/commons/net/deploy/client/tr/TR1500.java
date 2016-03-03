@@ -43,11 +43,11 @@ import org.apache.commons.net.deploy.common.ParamMap;
  * @author taincokr
  *
  */
-public class TR0500 extends Thread {
+public class TR1500 extends Thread {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0500.class);
+	private static final Logger log = Logger.getLogger(TR1500.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ public class TR0500 extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public TR0500() throws Exception {
+	public TR1500() throws Exception {
 		
 		if (flag) {
 			/*
@@ -85,14 +85,14 @@ public class TR0500 extends Thread {
 			/*
 			 * parameters
 			 */
-			this.host = ParamMap.getInstance().get("tain.server.host");
+			this.host = ParamMap.getInstance().get("tain.server.app01.host");
 			if (this.host == null) {
-				this.host = this.resourceBundle.getString("tain.server.host");
+				this.host = this.resourceBundle.getString("tain.server.app01.host");
 			}
 
-			this.port = ParamMap.getInstance().get("tain.server.port");
+			this.port = ParamMap.getInstance().get("tain.server.app01.port");
 			if (this.port == null) {
-				this.port = this.resourceBundle.getString("tain.server.port");
+				this.port = this.resourceBundle.getString("tain.server.app01.port");
 			}
 		}
 		
