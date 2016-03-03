@@ -1,0 +1,338 @@
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+[ folder ]
+
+	bin
+	
+	conf
+	
+	lib
+	
+	log
+	
+	client
+	
+	server
+	
+	
+
+
+---------------------------------------------------------------------------------------------------
+	[ client ]                        [ server ]
+
+	1. pre job
+	
+	2. send header                    1. recv header
+	
+	3. send data                      2. recv data
+	
+	4. execute job                    3. execute job
+	
+	5. recv header                    4. send header
+	
+	6. recv data                      5. send data
+	
+	7. post job                       6. post job
+	
+	
+---------------------------------------------------------------------------------------------------
+
+@echo off
+:: ------------------------------------------------------------------
+
+set MAIN_CLASS=tain.kr.com.proj.rush.v01.RushTestMain
+
+:: ------------------------------------------------------------------
+
+set JAVA_HOME=L:\PROG\jdk1.6.0_45
+set JRE_HOME=%JAVA_HOME%
+
+:: set JAVA_EXE=%JAVA_HOME%\bin\javaw.exe
+set JAVA_EXE=%JAVA_HOME%\bin\java.exe
+
+:: ------------------------------------------------------------------
+
+set HOME_PATH=L:\WORK\workspace\KANG
+set MAIN_PATH=%HOME_PATH%\bin
+
+:: ------------------------------------------------------------------
+
+set CP=%MAIN_PATH%
+:: set CP=
+set CP=%CP%;%JAVA_HOME%\lib\tools.jar
+set CP=%CP%;%JRE_HOME%\lib\rt.jar
+set CP=%CP%;%JRE_HOME%\lib\resources.jar
+set CP=%CP%;%JRE_HOME%\lib\jsse.jar
+set CP=%CP%;%JRE_HOME%\lib\jce.jar
+set CP=%CP%;%JRE_HOME%\lib\charsets.jar
+set CP=%CP%;%JRE_HOME%\lib\ext\dnsns.jar
+set CP=%CP%;%JRE_HOME%\lib\ext\localedata.jar
+set CP=%CP%;%JRE_HOME%\lib\ext\sunjce_provider.jar
+set CP=%CP%;%JRE_HOME%\lib\ext\sunmscapi.jar
+set CP=%CP%;%JRE_HOME%\lib\ext\sunpkcs11.jar
+
+:: ------------------------------------------------------------------
+
+set OPTION=-Xms512m -Xmx1024m
+set OPTION=%OPTION% -cp %CP%
+set OPTION=%OPTION% -Ddev.serial=KK28RWYXBC1067AS
+set OPTION=%OPTION% -Ddev.author=Kang_Seok
+set OPTION=%OPTION% -Ddev.version=1.6.0_45
+
+set OPTION=%OPTION% -Dtest.rush.properties.file=L:/WebPageInfo.properties
+set OPTION=%OPTION% -Dtest.rush.domain.key=DOMAIN.03
+set OPTION=%OPTION% -Dtest.rush.count.thread=10
+set OPTION=%OPTION% -Dtest.rush.show.request=yes
+set OPTION=%OPTION% -Dtest.rush.show.response=no
+set OPTION=%OPTION% -Dtest.rush.start.random=5
+
+:: String value = System.getProperty("test.rush.count.thread");
+
+:: ------------------------------------------------------------------
+
+@echo on
+
+%JAVA_EXE% %OPTION%  %MAIN_CLASS%
+
+::pause
+
+---------------------------------------------------------------------------------------------------
+
+	@echo off
+	
+	if "%1" == "dir" (
+		DIR /W
+	) ELSE (
+		IF EXIST "%1" (
+			:: %1 means a external program included .bat file
+			CALL %1
+			GOTO EXIT
+		) ELSE (
+			ECHO ERROR
+		)
+	)
+	
+	:EXIT
+
+---------------------------------------------------------------------------------------------------
+
+	@echo off
+	
+	call %1
+	
+	if ERRORLEVEL 0 (
+		echo SUCCESS
+	) else (
+		echo FAIL RET=%ERRORLEVEL%
+	)
+
+---------------------------------------------------------------------------------------------------
+
+	FOR /?
+
+	:: @for /L %A in (1,1,100) do echo %A                 <- sequence number
+	
+	:: @FOR    %A IN (*) DO MOVE /Y %A ..\emart.web       <- files
+	
+	:: @FOR /D %A IN (*) DO MOVE /Y %A ..\emart.web       <- folders
+	
+	:: @FOR /R %A IN (.) DO RM %A                         <- ???
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+tain.date.format = yyyyMMdd-HHmmss
+
+tain.client.host = 127.0.0.1
+tain.client.port = 2025
+
+tain.client.deploy.file.name = N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+
+tain.client.exec.cmd = N:/TEMP/deploy/bin/TR0101.bat
+tain.client.exec.log = N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+
+tain.server.host = 127.0.0.1
+tain.server.port = 2025
+
+tain.server.deploy.file.name = N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+
+tain.server.exec.cmd = N:/TEMP/deploy/bin/TR0501.bat
+tain.server.exec.log = N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+[ VM arguments ver 0.1 ]
+
+-Dtain.date.format=yyyyMMdd-HHmmss
+-Dtain.client.host=127.0.0.1
+-Dtain.client.port=2025
+-Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
+-Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+
+-Dtain.server.host=127.0.0.1
+-Dtain.server.port=2025
+-Dtain.server.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.exec.cmd=N:/TEMP/deploy/bin/TR1501.bat
+-Dtain.server.exec.log=N:/TEMP/deploy/log/TR1501-YYYYMMDDHHMMSS.log
+
+---------------------------------------------------------------------------------------------------
+
+[ VM arguments ver 0.2]
+
+-Dtain.date.format=yyyyMMdd-HHmmss
+-Dtain.client.host=127.0.0.1
+-Dtain.client.port=2025
+-Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
+-Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+
+-Dtain.server.app01.host=127.0.0.1
+-Dtain.server.app01.port=2025
+-Dtain.server.app01.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.app01.exec.cmd=N:/TEMP/deploy/bin/TR1501.bat
+-Dtain.server.app01.exec.log=N:/TEMP/deploy/log/TR1501-YYYYMMDDHHMMSS.log
+
+-Dtain.server.app02.host=127.0.0.1
+-Dtain.server.app02.port=2025
+-Dtain.server.app02.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.app02.exec.cmd=N:/TEMP/deploy/bin/TR2501.bat
+-Dtain.server.app02.exec.log=N:/TEMP/deploy/log/TR2501-YYYYMMDDHHMMSS.log
+
+---------------------------------------------------------------------------------------------------
+
+[ VM arguments ver 0.3 ]
+
+-Dtain.job.seq.range=1-2
+-Dtain.job.seq.range=1-4
+-Dtain.job.seq.range=2-4
+-Dtain.job.seq.range=1-6
+
+-Dtain.date.format=yyyyMMdd-HHmmss
+-Dtain.client.host=127.0.0.1
+-Dtain.client.port=2025
+-Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
+-Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+
+-Dtain.server.host=127.0.0.1
+-Dtain.server.port=2025
+
+-Dtain.server.app01.host=127.0.0.1
+-Dtain.server.app01.port=2025
+
+-Dtain.server.app02.host=127.0.0.1
+-Dtain.server.app02.port=2025
+
+-Dtain.server.name=[app01|app02]
+-Dtain.server.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.exec.cmd=N:/TEMP/deploy/bin/TR0501.bat
+-Dtain.server.exec.log=N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
+
+-Dtain.job.seq.range=1-6
+-Dtain.date.format=yyyyMMdd-HHmmss
+-Dtain.client.host=127.0.0.1
+-Dtain.client.port=2025
+-Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
+-Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+-Dtain.server.host=127.0.0.1
+-Dtain.server.port=2025
+-Dtain.server.app01.host=127.0.0.1
+-Dtain.server.app01.port=2025
+-Dtain.server.app02.host=127.0.0.1
+-Dtain.server.app02.port=2025
+-Dtain.server.name=[app01|app02]
+-Dtain.server.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+-Dtain.server.exec.cmd=N:/TEMP/deploy/bin/TR0501.bat
+-Dtain.server.exec.log=N:/TEMP/deploy/log/TR0501-YYYYMMDDHHMMSS.log
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+[ TainClientMain.properties ver 0.1 ]
+
+tain.job.seq.1 = TR0000
+tain.job.seq.2 = TR0100
+tain.job.seq.3 = TR0200
+tain.job.seq.4 = TR0500
+
+
+tain.comment = This is a main program of client side.
+
+
+---------------------------------------------------------------------------------------------------
+
+[ TainClientMain.properties ver 0.1 ]
+
+tain.job.seq.1 = TR0000;client
+tain.job.seq.2 = TR0100;client
+
+tain.job.seq.3 = TR0200;app01
+tain.job.seq.4 = TR0500;app01
+
+tain.job.seq.5 = TR0200;app02
+tain.job.seq.6 = TR0500;app02
+
+
+tain.comment = This is a main program of client side.
+
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
