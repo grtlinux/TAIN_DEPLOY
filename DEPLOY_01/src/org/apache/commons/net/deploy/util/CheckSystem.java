@@ -19,6 +19,8 @@
  */
 package org.apache.commons.net.deploy.util;
 
+import java.util.Properties;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -45,4 +47,94 @@ public class CheckSystem {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	private Properties prop = null;
+	
+	private CheckSystem() throws Exception {
+	
+		if (flag) {
+			prop = System.getProperties();
+		}
+	}
+	
+	private String get(String key) throws Exception {
+		
+		String val = null;
+		
+		if (flag) {
+			val = this.prop.getProperty(key);
+		}
+		
+		return val;
+	}
+	
+	private String get(String key, String def) throws Exception {
+		
+		String val = null;
+		
+		if (flag) {
+			val = this.prop.getProperty(key, def);
+		}
+		
+		return val;
+	}
+	
+	public boolean isWindows() throws Exception {
+		
+		boolean ret = false;
+
+		if (!flag) {
+			String osName = get("os.name", "");
+			if (osName.indexOf("Win", 0) >= 0) {
+				return true;
+			}
+		}
+		
+		if (flag) {
+			String osName = get("os.name");
+			if (osName.indexOf("Win", 0) >= 0) {
+				return true;
+			}
+		}
+		
+		return ret;
+	}
+	
+	public boolean isUnix() throws Exception {
+		
+		return isWindows() ? false : true;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	private static CheckSystem instance = null;
+	
+	public static synchronized CheckSystem getInstance() throws Exception {
+		
+		if (instance == null) {
+			instance = new CheckSystem();
+		}
+		
+		return instance;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static void test01(String[] args) throws Exception {
+		
+		if (flag) {
+			log.debug("windows " + CheckSystem.getInstance().isWindows());
+			log.debug("unix    " + CheckSystem.getInstance().isUnix());
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		
+		if (flag) test01(args);
+	}
 }
