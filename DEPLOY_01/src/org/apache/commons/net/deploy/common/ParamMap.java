@@ -64,6 +64,11 @@ public class ParamMap {
 			this.paramMap.put("tain.serial.key", "918X942YAAAZAA2K94C8");
 			
 			/*
+			 * sequence range
+			 */
+			this.paramMap.put("tain.job.seq.range", System.getProperty("tain.job.seq.range"));
+
+			/*
 			 * date format
 			 */
 			this.paramMap.put("tain.date.format", System.getProperty("tain.date.format"));
@@ -84,11 +89,20 @@ public class ParamMap {
 			 */
 			this.paramMap.put("tain.server.host", System.getProperty("tain.server.host"));
 			this.paramMap.put("tain.server.port", System.getProperty("tain.server.port"));
+			this.paramMap.put("tain.server.app01.host", System.getProperty("tain.server.app01.host"));
+			this.paramMap.put("tain.server.app01.port", System.getProperty("tain.server.app01.port"));
+			this.paramMap.put("tain.server.app02.host", System.getProperty("tain.server.app02.host"));
+			this.paramMap.put("tain.server.app02.port", System.getProperty("tain.server.app02.port"));
 
+			this.paramMap.put("tain.server.name", System.getProperty("tain.server.name"));
 			this.paramMap.put("tain.server.deploy.file.name", System.getProperty("tain.server.deploy.file.name"));
 			
 			this.paramMap.put("tain.server.exec.cmd", System.getProperty("tain.server.exec.cmd"));
 			this.paramMap.put("tain.server.exec.log", System.getProperty("tain.server.exec.log"));
+			this.paramMap.put("tain.server.app01.exec.cmd", System.getProperty("tain.server.app01.exec.cmd"));
+			this.paramMap.put("tain.server.app01.exec.log", System.getProperty("tain.server.app01.exec.log"));
+			this.paramMap.put("tain.server.app02.exec.cmd", System.getProperty("tain.server.app02.exec.cmd"));
+			this.paramMap.put("tain.server.app02.exec.log", System.getProperty("tain.server.app02.exec.log"));
 		}
 	}
 	

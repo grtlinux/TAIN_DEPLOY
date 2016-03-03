@@ -172,7 +172,7 @@ public class TR0501 {
 			if (flag) {
 				// make return body
 
-				this.body = String.format("%s", "TR0501_OK").getBytes("EUC-KR");
+				this.body = String.format("%s", this.trCode + "_OK").getBytes("EUC-KR");
 				this.bodyLen = this.body.length;
 
 				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));
