@@ -29,6 +29,10 @@ import org.apache.commons.net.deploy.server.tr.TR0001;
 import org.apache.commons.net.deploy.server.tr.TR0101;
 import org.apache.commons.net.deploy.server.tr.TR0201;
 import org.apache.commons.net.deploy.server.tr.TR0501;
+import org.apache.commons.net.deploy.server.tr.TR1201;
+import org.apache.commons.net.deploy.server.tr.TR1501;
+import org.apache.commons.net.deploy.server.tr.TR2201;
+import org.apache.commons.net.deploy.server.tr.TR2501;
 import org.apache.log4j.Logger;
 
 /**
@@ -124,10 +128,18 @@ public class TainServerThread extends Thread {
 
 					// java 1.7 or higher
 					switch (trCode) {
+					// client
 					case "TR0000": new TR0001(this.socket, this.dis, this.dos, header).execute(); break;
 					case "TR0100": new TR0101(this.socket, this.dis, this.dos, header).execute(); break;
+					// sample
 					case "TR0200": new TR0201(this.socket, this.dis, this.dos, header).execute(); break;
 					case "TR0500": new TR0501(this.socket, this.dis, this.dos, header).execute(); break;
+					// app01
+					case "TR1200": new TR1201(this.socket, this.dis, this.dos, header).execute(); break;
+					case "TR1500": new TR1501(this.socket, this.dis, this.dos, header).execute(); break;
+					// app02
+					case "TR2200": new TR2201(this.socket, this.dis, this.dos, header).execute(); break;
+					case "TR2500": new TR2501(this.socket, this.dis, this.dos, header).execute(); break;
 					default:
 						PacketHeader.RET_CODE.setVal(header, "99999");
 						PacketHeader.RET_MSG.setVal(header, "NO_TR_CODE");

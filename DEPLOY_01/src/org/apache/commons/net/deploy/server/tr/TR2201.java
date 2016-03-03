@@ -21,7 +21,7 @@ package org.apache.commons.net.deploy.server.tr;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +30,6 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import org.apache.commons.net.deploy.common.Exec;
 import org.apache.commons.net.deploy.common.PacketHeader;
 import org.apache.commons.net.deploy.common.ParamMap;
 
@@ -49,11 +48,11 @@ import org.apache.commons.net.deploy.common.ParamMap;
  *
  */
 @SuppressWarnings("unused")
-public class TR0101 {
+public class TR2201 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0101.class);
+	private static final Logger log = Logger.getLogger(TR2201.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,26 +62,26 @@ public class TR0101 {
 	private String trCode = null;
 	private ResourceBundle resourceBundle = null;
 	private String comment = null;
-	
+
 	private Socket socket = null;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
-	
+
 	private byte[] header = null;
 	
 	private byte[] body = null;
 	private int bodyLen = 0;
 
-	private String execCmd = null;
-	private String execLog = null;
-
+	private String fileName = null;
+	private long fileSize = -1;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public TR0101(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TR2201(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			/*
@@ -92,20 +91,17 @@ public class TR0101 {
 			this.trCode = this.className.substring(this.className.lastIndexOf("TR"));
 			this.resourceBundle = ResourceBundle.getBundle(this.className.replace('.', '/'));
 			this.comment = this.resourceBundle.getString("tain.comment");
+			
+			this.fileName = this.resourceBundle.getString("tain.server.deploy.file.name");
 		}
 		
 		if (flag) {
 			/*
 			 * parameters
 			 */
-			this.execCmd = ParamMap.getInstance().get("tain.client.exec.cmd");
-			if (this.execCmd == null) {
-				this.execCmd = this.resourceBundle.getString("tain.client.exec.cmd");
-			}
-			
-			this.execLog = ParamMap.getInstance().get("tain.client.exec.log");
-			if (this.execLog == null) {
-				this.execLog = this.resourceBundle.getString("tain.client.exec.log");
+			this.fileName = ParamMap.getInstance().get("tain.server.deploy.file.name");
+			if (this.fileName == null) {
+				this.fileName = this.resourceBundle.getString("tain.server.deploy.file.name");
 			}
 		}
 		
@@ -128,8 +124,7 @@ public class TR0101 {
 			log.debug(">>>>> " + this.className);
 			log.debug(">>>>> " + this.comment);
 			log.debug(">>>>> trCode = " + this.trCode);
-			log.debug(">>>>> exec cmd = " + this.execCmd);
-			log.debug(">>>>> exec log = " + this.execLog);
+			log.debug(">>>>> file name = " + this.fileName);
 		}
 	}
 	
@@ -149,33 +144,72 @@ public class TR0101 {
 			 * 3. execute job
 			 */
 			
-			String strDeployTime = "";
+			String trCmd = null;
+			String strFileSize = null;
+			String strDeployTime = null;
 			
 			if (flag) {
+				// get transfer informations
+
 				String[] arrParams = new String(this.body).split(";");
-				String trCmd = arrParams[0];
-				strDeployTime = arrParams[1];
+				trCmd = arrParams[0];
+				strFileSize = arrParams[1];
+				strDeployTime = arrParams[2];
 				
-				this.execLog = this.execLog.replaceAll("YYYYMMDDHHMMSS", strDeployTime);
-				if (flag) log.debug(">>>>> exec log = " + this.execLog);
-			}
+				this.fileSize = Long.parseLong(strFileSize);
+				this.fileName = this.fileName.replaceAll("YYYYMMDDHHMMSS", strDeployTime);
 
+				if (flag) log.debug(String.format("fileSize = %,d", this.fileSize));
+				if (flag) log.debug(String.format("fileName = %s", this.fileName));
+			}
+			
 			if (flag) {
-				// Exec.run
-				if (!flag) Exec.run(new String[] {"cmd", "/c", "D:/TR500.cmd"}, false);
-				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
-				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
+				// get file content
+				
+				FileOutputStream fos = null;
+				
+				try {
+					
+					fos = new FileOutputStream(this.fileName);
+					
+					byte[] buf = new byte[10240];
+					
+					for (int i=1; ; i++) {
+					
+						int readed = this.dis.read(buf);
+						if (readed < 0)
+							break;
+						
+						fos.write(buf, 0, readed);
+						
+						if (flag) {
+							System.out.print("#");
+							if (i % 200 == 0)
+								System.out.println();
+						}
+						
+						fileSize -= readed;
+						if (fileSize <= 0) {
+							if (flag) System.out.println();
+							break;
+						}
+					}
 
-				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				} catch (Exception e) {
+					// e.printStackTrace();
+					throw e;
+				} finally {
+					if (fos != null) try { fos.close(); } catch (Exception e) {}
+				}
 			}
-
+			
 			if (flag) {
 				// make return body
-
-				this.body = String.format("%s", this.trCode + "_OK").getBytes("EUC-KR");
+				
+				this.body = "FILE_TRANSFER_OK".getBytes("EUC-KR");
 				this.bodyLen = this.body.length;
 
-				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", this.bodyLen, new String(this.body)));
+				if (flag) log.debug(String.format("-- 3. DATA [%d:%s]", bodyLen, new String(this.body)));
 			}
 		}
 		

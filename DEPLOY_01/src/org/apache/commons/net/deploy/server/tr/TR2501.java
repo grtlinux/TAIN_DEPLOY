@@ -49,11 +49,11 @@ import org.apache.commons.net.deploy.common.ParamMap;
  *
  */
 @SuppressWarnings("unused")
-public class TR0101 {
+public class TR2501 {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TR0101.class);
+	private static final Logger log = Logger.getLogger(TR2501.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ public class TR0101 {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public TR0101(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
+	public TR2501(Socket socket, DataInputStream dis, DataOutputStream dos, byte[] packet) throws Exception {
 		
 		if (flag) {
 			/*
@@ -98,14 +98,14 @@ public class TR0101 {
 			/*
 			 * parameters
 			 */
-			this.execCmd = ParamMap.getInstance().get("tain.client.exec.cmd");
+			this.execCmd = ParamMap.getInstance().get("tain.server.app02.exec.cmd");
 			if (this.execCmd == null) {
-				this.execCmd = this.resourceBundle.getString("tain.client.exec.cmd");
+				this.execCmd = this.resourceBundle.getString("tain.server.app02.exec.cmd");
 			}
 			
-			this.execLog = ParamMap.getInstance().get("tain.client.exec.log");
+			this.execLog = ParamMap.getInstance().get("tain.server.app02.exec.log");
 			if (this.execLog == null) {
-				this.execLog = this.resourceBundle.getString("tain.client.exec.log");
+				this.execLog = this.resourceBundle.getString("tain.server.app02.exec.log");
 			}
 		}
 		
