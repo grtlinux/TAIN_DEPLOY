@@ -299,8 +299,8 @@
 		<dependency>
 			<groupId>com.experlog</groupId>
 			<artifactId>xapool</artifactId>
-			<!-- <version>1.5.0</version> 2015.11.05(by Kang Seok) 버젼 업 적용함. SQLException 버그 패치-->
-			<version>1.6-beta</version>
+			<version>1.5.0</version> <!-- 2015.11.05(by Kang Seok) 버젼 업 적용함. SQLException 버그 패치-->
+			<!-- version>1.6-beta</version -->
 		</dependency>
 
 		<dependency>

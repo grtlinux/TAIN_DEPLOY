@@ -9,19 +9,19 @@ set PATH=%PATH%;%JAVA_HOME%\bin;%M2_HOME%\bin;
 
 set JOB_HOME=N:\TEMP\deploy\server
 
-set WAS_HOME=N:\TEMP\app02\sas_webapps\sas.emartcms.war
+set WAS_HOME=N:\TEMP\deploy\server\app02\sas_webapps\sas.emartcms.war
 
 :: ----------------------------------------------------------------------------
-:: KEY_TIME
+:: DEPLOY_TIME
 
 if "%1" == "" (
-	:: set KEY_TIME=NO_KEY
-	set KEY_TIME=00000000-000000
+	:: set DEPLOY_TIME=NO_KEY
+	set DEPLOY_TIME=00000000-000000
 ) else (
-	set KEY_TIME=%1
+	set DEPLOY_TIME=%1
 )
 
-echo KEY_TIME = %KEY_TIME%
+echo DEPLOY_TIME = %DEPLOY_TIME%
 
 :: ----------------------------------------------------------------------------
 :: version check
@@ -73,13 +73,13 @@ echo %NOW%
 
 cd %JOB_HOME%
 
-rmdir /S /Q SASEMARTCMS-1.0.0-%KEY_TIME%
+rmdir /S /Q SASEMARTCMS-1.0.0-%DEPLOY_TIME%
 
-mkdir SASEMARTCMS-1.0.0-%KEY_TIME%
+mkdir SASEMARTCMS-1.0.0-%DEPLOY_TIME%
 
-cd SASEMARTCMS-1.0.0-%KEY_TIME%
+cd SASEMARTCMS-1.0.0-%DEPLOY_TIME%
 
-cmd /c jar xvf ..\SASEMARTCMS-1.0.0-%KEY_TIME%.war
+cmd /c jar xvf ..\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
 
 :: goto END
 
@@ -115,7 +115,7 @@ FOR %%A IN (*) DO (
 
 cd %WAS_HOME%
 
-xcopy /C /E /H /Y /R %JOB_HOME%\SASEMARTCMS-1.0.0-%KEY_TIME% .
+xcopy /C /E /H /Y /R %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME% .
 
 :: goto END
 
@@ -126,7 +126,7 @@ xcopy /C /E /H /Y /R %JOB_HOME%\SASEMARTCMS-1.0.0-%KEY_TIME% .
 
 cd %JOB_HOME%
 
-rmdir /S /Q SASEMARTCMS-1.0.0-%KEY_TIME%
+rmdir /S /Q SASEMARTCMS-1.0.0-%DEPLOY_TIME%
 
 goto END
 
@@ -141,7 +141,7 @@ goto END
 
 :END
 
-echo ########################## ALL SUCCESS [ TR0501.bat ] [ %KEY_TIME% ] ###########################
+echo ########################## ALL SUCCESS [ TR0501.bat ] [ %DEPLOY_TIME% ] ###########################
 
 cd N:\TEMP\deploy\bin
 
