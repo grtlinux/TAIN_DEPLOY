@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
-
 import org.apache.commons.net.deploy.common.Exec;
 import org.apache.commons.net.deploy.common.PacketHeader;
 import org.apache.commons.net.deploy.common.ParamMap;
@@ -166,7 +165,12 @@ public class TR0501 {
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 
-				if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				// windows
+				if (!flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+
+				// linux
+				if (flag) Exec.run(new String[] {this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				if (!flag) Exec.run(new String[] {"/bin/ksh", "-c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
 			}
 
 			if (flag) {
