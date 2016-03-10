@@ -33,10 +33,10 @@ set CP=%CP%;%JRE_HOME%\lib\ext\sunpkcs11.jar
 set CP=%CP%;%LIB_HOME%\ant.jar
 set CP=%CP%;%LIB_HOME%\commons-logging-1.2.jar
 set CP=%CP%;%LIB_HOME%\commons-logging-adapters-1.1.jar
-set CP=%CP%;%LIB_HOME%\commons-net-3.3.jar
+set CP=%CP%;%LIB_HOME%\commons-net-3.3.0.jar
 set CP=%CP%;%LIB_HOME%\jnlp.jar
 set CP=%CP%;%LIB_HOME%\log4j-1.2.17.jar
-set CP=%CP%;%LIB_HOME%\tain-deploy-1.0.jar
+::set CP=%CP%;%LIB_HOME%\tain-deploy-1.0.jar
 
 :: ------------------------------------------------------------------
 

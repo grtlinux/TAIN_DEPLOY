@@ -33,10 +33,10 @@ set CP=%CP%;%JRE_HOME%\lib\ext\sunpkcs11.jar
 set CP=%CP%;%LIB_HOME%\ant.jar
 set CP=%CP%;%LIB_HOME%\commons-logging-1.2.jar
 set CP=%CP%;%LIB_HOME%\commons-logging-adapters-1.1.jar
-set CP=%CP%;%LIB_HOME%\commons-net-3.3.jar
+set CP=%CP%;%LIB_HOME%\commons-net-3.3.0.jar
 set CP=%CP%;%LIB_HOME%\jnlp.jar
 set CP=%CP%;%LIB_HOME%\log4j-1.2.17.jar
-set CP=%CP%;%LIB_HOME%\tain-deploy-1.0.jar
+::set CP=%CP%;%LIB_HOME%\tain-deploy-1.0.jar
 
 :: ------------------------------------------------------------------
 
@@ -46,8 +46,8 @@ set OPTION=%OPTION% -Ddev.serial=KK28RWYXBC1067AS
 set OPTION=%OPTION% -Ddev.author=Kang_Seok
 set OPTION=%OPTION% -Ddev.version=jdk1.7.0_79
 
-set OPTION=%OPTION% -Dtain.job.seq.range=1-4
-::set OPTION=%OPTION% -Dtain.job.seq.range=1-6
+::set OPTION=%OPTION% -Dtain.job.seq.range=1-4
+set OPTION=%OPTION% -Dtain.job.seq.range=1-6
 set OPTION=%OPTION% -Dtain.date.format=yyyyMMdd-HHmmss
 set OPTION=%OPTION% -Dtain.client.host=127.0.0.1
 set OPTION=%OPTION% -Dtain.client.port=2025
