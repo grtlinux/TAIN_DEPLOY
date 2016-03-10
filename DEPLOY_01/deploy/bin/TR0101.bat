@@ -43,6 +43,7 @@ del %JOB_HOME%\SASEMARTCMS-1.0.0-%KEY_TIME%.war
 rmdir /S /Q   %JOB_HOME%\SASEMARTCMS
 
 cmd /c svn export svn://localhost/REPO_02/SASEMARTCMS   %JOB_HOME%\SASEMARTCMS
+::cmd /c svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS %JOB_HOME%\SASEMARTCMS --username fic01524 --password Kang123!
 
 echo ########################## EXPORT SUCCESS ###########################
 
@@ -53,8 +54,12 @@ echo ########################## EXPORT SUCCESS ###########################
 
 set LIB_HOME=%JOB_HOME%\SASEMARTCMS\src\main\webapp\WEB-INF\lib
 
-cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging-adapters     -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\commons-logging-adapters-1.1.jar
-cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging              -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\commons-logging-1.2.jar
+::cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging-adapters     -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\commons-logging-adapters-1.1.jar
+::cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging              -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\commons-logging-1.2.jar
+
+cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging-adapters     -Dversion=1.0 -Dpackaging=jar -Dfile=N:\TEMP\deploy\lib\commons-logging-adapters-1.1.jar
+cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=commons-logging              -Dversion=1.0 -Dpackaging=jar -Dfile=N:\TEMP\deploy\lib\commons-logging-1.2.jar
+
 cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=ibatis                       -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\ibatis-2.3.4.726b.jar
 cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=java-json                    -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\java-json.jar
 cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=log4j                        -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\log4j.jar
