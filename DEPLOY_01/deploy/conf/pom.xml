@@ -299,8 +299,9 @@
 		<dependency>
 			<groupId>com.experlog</groupId>
 			<artifactId>xapool</artifactId>
-			<version>1.5.0</version> <!-- 2015.11.05(by Kang Seok) 버젼 업 적용함. SQLException 버그 패치-->
+			<!-- <version>1.5.0</version> 2015.11.05(by Kang Seok) 버젼 업 적용함. SQLException 버그 패치-->
 			<!-- version>1.6-beta</version -->
+			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
@@ -315,24 +316,24 @@
 			<version>1.5</version>
 		</dependency>
 
-        <dependency><groupId>kang.tain</groupId><artifactId>commons-logging-adapters</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>commons-logging</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>ibatis</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>java-json</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>log4j</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>modules.tain</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.core</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.core.nls</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.rutil</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.security.sspi</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.servlet</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.servlet.nls</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.svc.connection</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sas.svc.connection.nls</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>sastpj.rutil</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>scsl</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>tdgssconfig</artifactId><version>1.0</version></dependency>
-        <dependency><groupId>kang.tain</groupId><artifactId>terajdbc4</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>ibatis</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>java-json</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>log4j</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>modules.tain</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.core</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.core.nls</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.rutil</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.security.sspi</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.servlet</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.servlet.nls</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.svc.connection</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sas.svc.connection.nls</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>sastpj.rutil</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>scsl</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>tdgssconfig</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>terajdbc4</artifactId><version>1.0</version></dependency>
+
+
 
 	</dependencies>
 

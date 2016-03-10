@@ -1,7 +1,7 @@
 @echo off
 :: ------------------------------------------------------------------
 
-set MAIN_CLASS=org.apache.commons.net.deploy.server.TainServerMain
+set MAIN_CLASS=org.apache.commons.net.deploy.client.TainClientMain
 
 :: ------------------------------------------------------------------
 
@@ -46,6 +46,7 @@ set OPTION=%OPTION% -Ddev.serial=KK28RWYXBC1067AS
 set OPTION=%OPTION% -Ddev.author=Kang_Seok
 set OPTION=%OPTION% -Ddev.version=jdk1.7.0_79
 
+::set OPTION=%OPTION% -Dtain.job.seq.range=1-4
 set OPTION=%OPTION% -Dtain.job.seq.range=1-6
 set OPTION=%OPTION% -Dtain.date.format=yyyyMMdd-HHmmss
 set OPTION=%OPTION% -Dtain.client.host=127.0.0.1
