@@ -1,6 +1,17 @@
 #!/bin/sh
 
 #--------------------------------------------------------------------------------------------
+# DEPLOY_TIME
+
+if [ "$1" = "" ]; then
+	export DEPLOY_TIME=00000000-000001
+else
+	export DEPLOY_TIME=$1
+fi
+
+echo "DEPLOY_TIME = $DEPLOY_TIME"
+
+#-------------------------------------------------------------------------------------------
 # set environment
 
 export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.45.x86_64
@@ -9,7 +20,12 @@ export SVN_HOME=/usr/bin
 export SVN_EDITOR=
 export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$SVN_HOME:$PATH
 
-export JOB_HOME=/sas/sasuser/sas/deploy/client
+export DEPLOY_HOME=/sas/sasuser/sas/deploy
+export JOB_HOME=$DEPLOY_HOME/client
+
+export EXPORT_PATH=$JOB_HOME/SASEMARTCMS
+
+export WAR_FILE=$JOB_HOME/SASEMARTCMS-1.0.0-$DEPLOY_TIME.war
 
 #--------------------------------------------------------------------------------------------
 # version check
@@ -28,51 +44,53 @@ mvn --version
 #--------------------------------------------------------------------------------------------
 # svn export
 
-/bin/rm -f  $JOB_HOME/SASEMARTCMS-1.0.0.war
+/bin/rm -f  $WAR_FILE
 
-/bin/rm -rf $JOB_HOME/SASEMARTCMS
+/bin/rm -rf $EXPORT_PATH
  
-svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS $JOB_HOME/SASEMARTCMS --username fic01524 --password Kang123!
+svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS $EXPORT_PATH --username fic01524 --password Kang123!
 
 /bin/echo "-------------- svn export OK !!  -------------------"
 
 #--------------------------------------------------------------------------------------------
 # pom.xml
 
-export LIB_HOME=$JOB_HOME/SASEMARTCMS/src/main/webapp/WEB-INF/lib
+export LIB_HOME=$EXPORT_PATH/src/main/webapp/WEB-INF/lib
 
-mvn install:install-file -DgroupId=kang.tain -DartifactId=ibatis                 -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/ibatis-2.3.4.726b.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=java-json              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/java-json.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=log4j                  -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/log4j.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=modules.tain           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/modules.tain.0.151031.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.core               -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.core.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.core.nls           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.core.nls.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.rutil              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.rutil.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.security.sspi      -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.security.sspi.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.servlet            -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.servlet.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.servlet.nls        -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.servlet.nls.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.svc.connection     -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.svc.connection.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.svc.connection.nls -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.svc.connection.nls.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=sastpj.rutil           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sastpj.rutil.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=scsl                   -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/scsl.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=tdgssconfig            -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/tdgssconfig.jar
-mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/terajdbc4.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=ibatis                 -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/ibatis-2.3.4.726b.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=java-json              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/java-json.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=log4j                  -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/log4j.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=modules.tain           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/modules.tain.0.151031.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.core               -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.core.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.core.nls           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.core.nls.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.rutil              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.rutil.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.security.sspi      -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.security.sspi.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.servlet            -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.servlet.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.servlet.nls        -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.servlet.nls.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.svc.connection     -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.svc.connection.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sas.svc.connection.nls -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sas.svc.connection.nls.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=sastpj.rutil           -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/sastpj.rutil.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=scsl                   -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/scsl.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=tdgssconfig            -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/tdgssconfig.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/terajdbc4.jar
 
-cp $JOB_HOME/pom.xml $JOB_HOME/SASEMARTCMS
+cp $DEPLOY_HOME/conf/pom.xml $EXPORT_PATH
+
+echo "$DEPLOY_TIME" > $EXPORT_PATH/src/main/webapp/$DEPLOY_TIME
 
 /bin/echo "-------------- pom.xml OK !!  -------------------"
 
 #--------------------------------------------------------------------------------------------
 # clean build
 
-mvn -file $JOB_HOME/SASEMARTCMS  clean install
+mvn -file $EXPORT_PATH  clean install
 
 /bin/echo "-------------- clean build OK !!  -------------------"
 
 #--------------------------------------------------------------------------------------------
 # finish
 
-mv $JOB_HOME/SASEMARTCMS/target/SASEMARTCMS-1.0.0.war $JOB_HOME
+mv $EXPORT_PATH/target/SASEMARTCMS-1.0.0.war $WAR_FILE
 
 /bin/echo "-------------- FINISH  -------------------"
 

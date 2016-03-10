@@ -1,27 +1,34 @@
 @echo on
 
 :: ----------------------------------------------------------------------------
+:: DEPLOY_TIME
+
+if "%1" == "" (
+	:: set DEPLOY_TIME=NO_KEY
+	set DEPLOY_TIME=00000000-000001
+) else (
+	set DEPLOY_TIME=%1
+)
+
+echo DEPLOY_TIME = %DEPLOY_TIME%
+
+:: ----------------------------------------------------------------------------
 :: set environment
 
 set JAVA_HOME=N:\PROG\jdk1.7.0_79
 set M2_HOME=N:\PROG\apache-maven-3.3.3
 set PATH=%PATH%;%JAVA_HOME%\bin;%M2_HOME%\bin;
 
-set JOB_HOME=N:\TEMP\deploy\server
+set DEPLOY_HOME=N:\TEMP\deploy
 
-set WAS_HOME=N:\TEMP\deploy\server\app01\sas_webapps\sas.emartcms.war
+set BIN_PATH=%DEPLOY_HOME%\bin
 
-:: ----------------------------------------------------------------------------
-:: DEPLOY_TIME
+set JOB_HOME=%DEPLOY_HOME%\server
 
-if "%1" == "" (
-	:: set DEPLOY_TIME=NO_KEY
-	set DEPLOY_TIME=00000000-000000
-) else (
-	set DEPLOY_TIME=%1
-)
+set WAR_PATH=%JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%
+set WAR_FILE=%JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
 
-echo DEPLOY_TIME = %DEPLOY_TIME%
+set WAS_HOME=%JOB_HOME%\app01\sas_webapps\sas.emartcms.war
 
 :: ----------------------------------------------------------------------------
 :: version check
@@ -33,25 +40,6 @@ cmd /c java -version
 cmd /c mvn --version
 
 :: pause
-:: goto END
-
-:: ----------------------------------------------------------------------------
-:: variables of DATE, and TIME
-
-set DATE1=%date:-=%
-set TIME1=%time::=%
-
-set DATE2=%DATE1:~2,6%
-set TIME2=%TIME1:~0,4%
-
-set NOW=%DATE1%%TIME2%
-
-echo %DATE1%
-echo %DATE2%
-echo %TIME1%
-echo %TIME2%
-echo %NOW%
-
 :: goto END
 
 :: ----------------------------------------------------------------------------
@@ -73,13 +61,13 @@ echo %NOW%
 
 cd %JOB_HOME%
 
-rmdir /S /Q SASEMARTCMS-1.0.0-%DEPLOY_TIME%
+rmdir /S /Q %WAR_PATH%
 
-mkdir SASEMARTCMS-1.0.0-%DEPLOY_TIME%
+mkdir %WAR_PATH%
 
-cd SASEMARTCMS-1.0.0-%DEPLOY_TIME%
+cd %WAR_PATH%
 
-cmd /c jar xvf ..\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
+cmd /c jar xvf %WAR_FILE%
 
 :: goto END
 
@@ -115,7 +103,7 @@ FOR %%A IN (*) DO (
 
 cd %WAS_HOME%
 
-xcopy /C /E /H /Y /R %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME% .
+xcopy /C /E /H /Y /R   %WAR_PATH% .
 
 :: goto END
 
@@ -126,7 +114,7 @@ xcopy /C /E /H /Y /R %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME% .
 
 cd %JOB_HOME%
 
-rmdir /S /Q SASEMARTCMS-1.0.0-%DEPLOY_TIME%
+rmdir /S /Q    %WAR_PATH%
 
 goto END
 
@@ -143,5 +131,5 @@ goto END
 
 echo ########################## ALL SUCCESS [ TR0501.bat ] [ %DEPLOY_TIME% ] ###########################
 
-cd N:\TEMP\deploy\bin
+cd %BIN_HOME%
 
