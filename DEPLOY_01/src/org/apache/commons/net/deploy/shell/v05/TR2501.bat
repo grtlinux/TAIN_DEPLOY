@@ -132,5 +132,5 @@ goto END
 
 echo ########################## ALL SUCCESS [ TR0501.bat ] [ %DEPLOY_TIME% ] ###########################
 
-cd N:\TEMP\deploy\bin
+cd %BIN_HOME%
 
