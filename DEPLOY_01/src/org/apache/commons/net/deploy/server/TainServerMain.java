@@ -24,6 +24,7 @@ import java.net.Socket;
 import java.util.ResourceBundle;
 
 import org.apache.commons.net.deploy.common.ParamMap;
+import org.apache.commons.net.deploy.util.CheckDeployKey;
 import org.apache.log4j.Logger;
 
 /**
@@ -61,6 +62,9 @@ public class TainServerMain {
 
 	private static void init() throws Exception {
 		
+		// check the deploy key
+		if (flag) CheckDeployKey.getInstance().check();
+
 		if (flag) {
 			className = new Object(){}.getClass().getEnclosingClass().getName();
 			

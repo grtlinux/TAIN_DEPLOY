@@ -62,6 +62,7 @@ public class ParamMap {
 			this.paramMap.put("tain.company", "TAIN,Inc.");
 			this.paramMap.put("tain.version", "ver_1.0_29_Feb_2016");
 			this.paramMap.put("tain.serial.key", "918X942YAAAZAA2K94C8");
+			this.paramMap.put("tain.deploy.key", "deploy123");
 			
 			/*
 			 * sequence range
