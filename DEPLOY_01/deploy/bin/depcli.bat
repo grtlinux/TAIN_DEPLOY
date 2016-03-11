@@ -13,7 +13,9 @@ set JAVA_EXE=%JAVA_HOME%\bin\java.exe
 
 :: ------------------------------------------------------------------
 
-set LIB_HOME=N:\TEMP\deploy\lib
+set DEPLOY_HOME=N:\TEMP\deploy
+
+set LIB_HOME=%DEPLOY_HOME%\lib
 
 :: ------------------------------------------------------------------
 
@@ -46,25 +48,25 @@ set OPTION=%OPTION% -Ddev.serial=KK28RWYXBC1067AS
 set OPTION=%OPTION% -Ddev.author=Kang_Seok
 set OPTION=%OPTION% -Ddev.version=jdk1.7.0_79
 
-::set OPTION=%OPTION% -Dtain.job.seq.range=1-4
+::set OPTION=%OPTION% -Dtain.job.seq.range=1-6
 set OPTION=%OPTION% -Dtain.job.seq.range=1-6
 set OPTION=%OPTION% -Dtain.date.format=yyyyMMdd-HHmmss
 set OPTION=%OPTION% -Dtain.client.host=127.0.0.1
 set OPTION=%OPTION% -Dtain.client.port=2025
-set OPTION=%OPTION% -Dtain.client.deploy.file.name=N:/TEMP/deploy/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
-set OPTION=%OPTION% -Dtain.client.exec.cmd=N:/TEMP/deploy/bin/TR0101.bat
-set OPTION=%OPTION% -Dtain.client.exec.log=N:/TEMP/deploy/log/TR0101-YYYYMMDDHHMMSS.log
+set OPTION=%OPTION% -Dtain.client.deploy.file.name=%DEPLOY_HOME%/client/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+set OPTION=%OPTION% -Dtain.client.exec.cmd=%DEPLOY_HOME%/bin/TR0101.bat
+set OPTION=%OPTION% -Dtain.client.exec.log=%DEPLOY_HOME%/log/TR0101-YYYYMMDDHHMMSS.log
 set OPTION=%OPTION% -Dtain.server.host=127.0.0.1
 set OPTION=%OPTION% -Dtain.server.port=2025
 set OPTION=%OPTION% -Dtain.server.app01.host=127.0.0.1
 set OPTION=%OPTION% -Dtain.server.app01.port=2025
 set OPTION=%OPTION% -Dtain.server.app02.host=127.0.0.1
 set OPTION=%OPTION% -Dtain.server.app02.port=2025
-set OPTION=%OPTION% -Dtain.server.deploy.file.name=N:/TEMP/deploy/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
-set OPTION=%OPTION% -Dtain.server.app01.exec.cmd=N:/TEMP/deploy/bin/TR1501.bat
-set OPTION=%OPTION% -Dtain.server.app01.exec.log=N:/TEMP/deploy/log/TR1501-YYYYMMDDHHMMSS.log
-set OPTION=%OPTION% -Dtain.server.app02.exec.cmd=N:/TEMP/deploy/bin/TR2501.bat
-set OPTION=%OPTION% -Dtain.server.app02.exec.log=N:/TEMP/deploy/log/TR2501-YYYYMMDDHHMMSS.log
+set OPTION=%OPTION% -Dtain.server.deploy.file.name=%DEPLOY_HOME%/server/SASEMARTCMS-1.0.0-YYYYMMDDHHMMSS.war
+set OPTION=%OPTION% -Dtain.server.app01.exec.cmd=%DEPLOY_HOME%/bin/TR1501.bat
+set OPTION=%OPTION% -Dtain.server.app01.exec.log=%DEPLOY_HOME%/log/TR1501-YYYYMMDDHHMMSS.log
+set OPTION=%OPTION% -Dtain.server.app02.exec.cmd=%DEPLOY_HOME%/bin/TR2501.bat
+set OPTION=%OPTION% -Dtain.server.app02.exec.log=%DEPLOY_HOME%/log/TR2501-YYYYMMDDHHMMSS.log
 
 :: ------------------------------------------------------------------
 

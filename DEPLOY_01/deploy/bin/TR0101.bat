@@ -53,8 +53,8 @@ del %WAR_FILE%
 
 rmdir /S /Q   %EXPORT_PATH%
 
-::cmd /c svn export svn://localhost/REPO_02/SASEMARTCMS   %EXPORT_PATH%
-cmd /c svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS %EXPORT_PATH% --username fic01524 --password Kang123!
+cmd /c svn export svn://localhost/REPO_02/SASEMARTCMS   %EXPORT_PATH%
+::cmd /c svn export svn://matcmsmine01/repo-tasks/SASEMARTCMS %EXPORT_PATH% --username fic01524 --password Kang123!
 
 :: goto END
 
