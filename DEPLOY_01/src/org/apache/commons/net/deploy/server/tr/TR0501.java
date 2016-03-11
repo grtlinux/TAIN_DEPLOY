@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.apache.commons.net.deploy.common.Exec;
 import org.apache.commons.net.deploy.common.PacketHeader;
 import org.apache.commons.net.deploy.common.ParamMap;
+import org.apache.commons.net.deploy.util.CheckSystem;
 
 /**
  * Code Templates > Comments > Types
@@ -165,12 +166,14 @@ public class TR0501 {
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "start"}, false);
 				if (!flag) Exec.run(new String[] {"cmd", "/c", "M:/TEMP/DEPLOY_TEST/CLIENT/mvn_dos.bat"}, false);
 
-				// windows
-				if (!flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
-
-				// linux
-				if (flag) Exec.run(new String[] {this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
-				if (!flag) Exec.run(new String[] {"/bin/ksh", "-c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				if (CheckSystem.getInstance().isWindows()) {
+					// windows
+					if (!flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				} else {
+					// linux
+					if (!flag) Exec.run(new String[] {"/bin/ksh", "-c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+					if (flag) Exec.run(new String[] {this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+				}
 			}
 
 			if (flag) {
