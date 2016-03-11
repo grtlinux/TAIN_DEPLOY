@@ -31,6 +31,7 @@ import org.apache.commons.net.deploy.client.tr.TR1500;
 import org.apache.commons.net.deploy.client.tr.TR2200;
 import org.apache.commons.net.deploy.client.tr.TR2500;
 import org.apache.commons.net.deploy.common.ParamMap;
+import org.apache.commons.net.deploy.common.Version;
 import org.apache.commons.net.deploy.util.CheckDeployKey;
 import org.apache.log4j.Logger;
 
@@ -70,6 +71,9 @@ public class TainClientMain {
 
 	private static void init() throws Exception {
 
+		// print version
+		if (flag) Version.getInstance().printVersion();
+		
 		// check the deploy key
 		if (flag) CheckDeployKey.getInstance().check();
 		
