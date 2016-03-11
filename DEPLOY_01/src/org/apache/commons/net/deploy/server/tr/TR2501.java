@@ -168,7 +168,7 @@ public class TR2501 {
 
 				if (CheckSystem.getInstance().isWindows()) {
 					// windows
-					if (!flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
+					if (flag) Exec.run(new String[] {"cmd", "/c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
 				} else {
 					// linux
 					if (!flag) Exec.run(new String[] {"/bin/ksh", "-c", this.execCmd, strDeployTime}, new FileWriter(this.execLog), true);
