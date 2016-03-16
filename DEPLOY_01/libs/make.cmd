@@ -29,9 +29,14 @@ cd ..
 rmdir /S /Q JOB
 
 ::-------------------------------------------
+:: copy
+
+xcopy /C /Y commons-net-3.3.0.jar ..\deploy\lib
+
+::-------------------------------------------
 :: finish
 :END
 
-timeout 1
+timeout 2
 ::pause
 
