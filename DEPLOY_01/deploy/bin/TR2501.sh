@@ -5,6 +5,8 @@
 
 if [ "$1" = "" ]; then
 	export DEPLOY_TIME=00000000-000001
+	/bin/echo "USAGE : need to add a argument of DEPLOY_TIME"
+	exit
 else
 	export DEPLOY_TIME=$1
 fi
@@ -29,6 +31,7 @@ export JOB_HOME=$DEPLOY_HOME/server
 export WAR_PATH=$JOB_HOME/SASEMARTCMS-1.0.0-$DEPLOY_TIME
 export WAR_FILE=$JOB_HOME/SASEMARTCMS-1.0.0-$DEPLOY_TIME.war
 
+# TODO 2016.03.16 : change the below in server app01
 export WAS_HOME=$JOB_HOME/app02/sas_webapps/sas.emartcms.war
 
 

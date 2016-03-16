@@ -5,6 +5,8 @@
 
 if [ "$1" = "" ]; then
 	export DEPLOY_TIME=00000000-000001
+	/bin/echo "USAGE : need to add a argument of DEPLOY_TIME"
+	exit
 else
 	export DEPLOY_TIME=$1
 fi
