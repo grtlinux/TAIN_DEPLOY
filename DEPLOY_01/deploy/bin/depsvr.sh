@@ -41,6 +41,7 @@ CLASSPATH=${CLASSPATH}:${LIB_HOME}/log4j-1.2.17.jar
 
 # OPTION="-Xss256K"
 OPTION="-Xms512m -Xmx1024m"
+OPTION="${OPTION} -Dname=DeployServer"
 OPTION="${OPTION} -Ddev.serial=KK28RWYXBC1067AS"
 OPTION="${OPTION} -Ddev.author=Kang_Seok"
 OPTION="${OPTION} -Ddev.version=jdk1.7.0_79"
@@ -67,7 +68,7 @@ OPTION="${OPTION} -Dtain.server.app02.exec.log=${DEPLOY_HOME}/log/TR2501-YYYYMMD
 
 #------------------------------------------------------
 
-# nohup ${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS} > /dev/null 2>&1 &
+# nohup ${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS} >> depsvr.log    2>&1 &
 
 ${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS}
 
