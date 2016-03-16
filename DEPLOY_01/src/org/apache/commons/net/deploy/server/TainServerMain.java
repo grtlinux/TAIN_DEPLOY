@@ -67,7 +67,7 @@ public class TainServerMain {
 		if (flag) Version.getInstance().printVersion();
 		
 		// check the deploy key
-		if (flag) CheckDeployKey.getInstance().check();
+		if (!flag) CheckDeployKey.getInstance().check();
 
 		if (flag) {
 			className = new Object(){}.getClass().getEnclosingClass().getName();
