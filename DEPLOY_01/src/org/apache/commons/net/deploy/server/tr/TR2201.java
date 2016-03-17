@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
-
 import org.apache.commons.net.deploy.common.PacketHeader;
 import org.apache.commons.net.deploy.common.ParamMap;
 
@@ -183,8 +182,10 @@ public class TR2201 {
 						fos.write(buf, 0, readed);
 						
 						if (flag) {
-							System.out.print("#");
-							if (i % 200 == 0)
+							if (i % 10 == 0)
+								System.out.print("#");
+							
+							if (i % 1000 == 0)
 								System.out.println();
 						}
 						
