@@ -26,7 +26,6 @@ set BIN_PATH=%DEPLOY_HOME%\bin
 set JOB_HOME=%DEPLOY_HOME%\server
 
 set WAR_PATH=%JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%
-
 set WAR_FILE=%JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
 
 set WAS_HOME=%JOB_HOME%\app02\sas_webapps\sas.emartcms.war
@@ -116,6 +115,8 @@ xcopy /C /E /H /Y /R   %WAR_PATH% .
 cd %JOB_HOME%
 
 rmdir /S /Q    %WAR_PATH%
+
+del /q %WAR_FILE%
 
 goto END
 
