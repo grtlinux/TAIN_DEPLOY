@@ -45,8 +45,13 @@ OPTION="${OPTION} -Ddev.serial=KK28RWYXBC1067AS"
 OPTION="${OPTION} -Ddev.author=Kang_Seok"
 OPTION="${OPTION} -Ddev.version=jdk1.7.0_79"
 
-OPTION="${OPTION} -Dtain.job.seq.range=1-6"
-# OPTION="${OPTION} -Dtain.job.seq.range=1-6"
+
+if [ "$1" = "" ]; then
+	OPTION="${OPTION} -Dtain.job.seq.range=1-6"
+else
+	OPTION="${OPTION} -Dtain.job.seq.range=3-6"
+fi
+
 OPTION="${OPTION} -Dtain.date.format=yyyyMMdd-HHmmss"
 OPTION="${OPTION} -Dtain.client.host=127.0.0.1"
 OPTION="${OPTION} -Dtain.client.port=2025"

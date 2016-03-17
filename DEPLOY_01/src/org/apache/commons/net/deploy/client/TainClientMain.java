@@ -19,6 +19,7 @@
  */
 package org.apache.commons.net.deploy.client;
 
+import java.io.File;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -110,6 +111,30 @@ public class TainClientMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
+			/*
+			 * TODO 2016.03.17
+			 * if a argument of deply_time is added, then do the below...
+			 */
+			if (args.length > 0) {
+				String deployTime = args[0];
+				
+				if (flag) log.debug("##### ARGUMENT DEPLOY_TIME = " + deployTime);
+				
+				String fileName = ParamMap.getInstance().get("tain.client.deploy.file.name");
+				fileName = fileName.replaceAll("YYYYMMDDHHMMSS", deployTime);
+				
+				File file = new File(fileName);
+				if (!file.exists()) {
+					log.error(">>>>> file does not exist [" + fileName + "]");
+					
+					System.exit(-1);
+				}
+				
+				ParamMap.getInstance().put("tain.deploy.time", deployTime);
+			}
+		}
+
+		if (flag) {
 			
 			String key = null;
 			String val = null;
@@ -190,10 +215,19 @@ public class TainClientMain {
 		}
 	}
 	
+	private static void test02(String[] args) throws Exception {
+	
+		if (flag) {
+			if (args.length > 0)
+				log.debug(">> arg0 = " + args[0]);
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 
 		if (flag) init();
 		
 		if (flag) test01(args);
+		if (!flag) test02(args);
 	}
 }

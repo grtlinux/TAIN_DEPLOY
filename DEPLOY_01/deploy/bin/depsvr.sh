@@ -2,6 +2,18 @@
 
 #------------------------------------------------------
 
+if [ `ps -ef | grep DeployServer | grep -v grep | grep -v tail | wc -l` -ne 0 ]; then
+	echo '################################################'
+	echo '# DeployServer Process is already running.     #'
+	echo '################################################'
+	exit 0
+else
+	echo '# DeployServer is starting.......'
+fi
+
+
+#------------------------------------------------------
+
 MAIN_CLASS=org.apache.commons.net.deploy.server.TainServerMain
 
 #------------------------------------------------------
