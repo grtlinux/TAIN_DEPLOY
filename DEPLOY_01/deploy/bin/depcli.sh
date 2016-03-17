@@ -72,9 +72,9 @@ OPTION="${OPTION} -Dtain.server.app02.exec.log=${DEPLOY_HOME}/log/TR2501-YYYYMMD
 
 #------------------------------------------------------
 
-# nohup ${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS} > /dev/null 2>&1 &
+# nohup ${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS} $1   > /dev/null 2>&1 &
 
-${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS}
+${JAVA_EXE} -cp ${CLASSPATH} ${OPTION} ${MAIN_CLASS} $1
 
 #------------------------------------------------------
 
