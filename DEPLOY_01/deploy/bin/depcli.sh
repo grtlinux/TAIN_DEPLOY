@@ -41,6 +41,7 @@ CLASSPATH=${CLASSPATH}:${LIB_HOME}/log4j-1.2.17.jar
 
 # OPTION="-Xss256K"
 OPTION="-Xms512m -Xmx1024m"
+OPTION="${OPTION} -Dname=DeployClient"
 OPTION="${OPTION} -Ddev.serial=KK28RWYXBC1067AS"
 OPTION="${OPTION} -Ddev.author=Kang_Seok"
 OPTION="${OPTION} -Ddev.version=jdk1.7.0_79"
