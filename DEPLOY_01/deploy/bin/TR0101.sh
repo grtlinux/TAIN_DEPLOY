@@ -92,7 +92,12 @@ mvn -file $EXPORT_PATH  clean install
 #--------------------------------------------------------------------------------------------
 # finish
 
-mv $EXPORT_PATH/target/SASEMARTCMS-1.0.0.war $WAR_FILE
+# mv $EXPORT_PATH/target/SASEMARTCMS-1.0.0.war $WAR_FILE
+
+cd $EXPORT_PATH/target/SASEMARTCMS-1.0.0
+
+jar cvf $WAR_FILE *
+
 
 /bin/echo "-------------- FINISH  -------------------"
 

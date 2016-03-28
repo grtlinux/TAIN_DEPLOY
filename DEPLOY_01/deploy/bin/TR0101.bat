@@ -105,7 +105,11 @@ echo ########################## MAVEN COMPILE SUCCESS ##########################
 :: ----------------------------------------------------------------------------
 :: 5. move SASEMARTCMS-XXX.war
 
-move %EXPORT_PATH%\target\SASEMARTCMS-1.0.0.war %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
+:: move %EXPORT_PATH%\target\SASEMARTCMS-1.0.0.war %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war
+
+cd %EXPORT_PATH%\target\SASEMARTCMS-1.0.0
+
+%JAVA_HOME%\bin\jar cvf %JOB_HOME%\SASEMARTCMS-1.0.0-%DEPLOY_TIME%.war *
 
 echo ########################## MOVE SUCCESS ###########################
 
