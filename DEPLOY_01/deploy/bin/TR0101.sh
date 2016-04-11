@@ -76,6 +76,9 @@ export LIB_HOME=$EXPORT_PATH/src/main/webapp/WEB-INF/lib
 # mvn install:install-file -DgroupId=kang.tain -DartifactId=tdgssconfig            -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/tdgssconfig.jar
 # mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4              -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/terajdbc4.jar
 
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=json                   -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/json-20151123.jar
+# mvn install:install-file -DgroupId=kang.tain -DartifactId=gson                   -Dversion=1.0 -Dpackaging=jar -Dfile=$LIB_HOME/gson-2.6.2.jar
+
 cp $DEPLOY_HOME/conf/pom.xml $EXPORT_PATH
 
 echo "$DEPLOY_TIME" > $EXPORT_PATH/src/main/webapp/$DEPLOY_TIME

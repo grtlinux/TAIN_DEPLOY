@@ -86,6 +86,9 @@ cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=scsl           
 cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=tdgssconfig                  -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\tdgssconfig.jar
 cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=terajdbc4                    -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\terajdbc4.jar
 
+:: added by Seok Kang at 2016.04.08
+cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=json                         -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\json-20151123.jar
+cmd /c mvn install:install-file -DgroupId=kang.tain -DartifactId=gson                         -Dversion=1.0 -Dpackaging=jar -Dfile=%LIB_HOME%\gson-2.6.2.jar
 
 xcopy /Y ..\conf\pom.xml %EXPORT_PATH%
 

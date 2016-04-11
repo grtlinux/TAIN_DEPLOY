@@ -316,6 +316,11 @@
 			<version>1.5</version>
 		</dependency>
 
+		<!-- added by Seok Kang in 2016.04.08 -->
+		<dependency><groupId>kang.tain</groupId><artifactId>json</artifactId><version>1.0</version></dependency>
+		<dependency><groupId>kang.tain</groupId><artifactId>gson</artifactId><version>1.0</version></dependency>
+
+		<!-- added by Seok Kang in 2016.01.13 -->
 		<dependency><groupId>kang.tain</groupId><artifactId>ibatis</artifactId><version>1.0</version></dependency>
 		<dependency><groupId>kang.tain</groupId><artifactId>java-json</artifactId><version>1.0</version></dependency>
 		<dependency><groupId>kang.tain</groupId><artifactId>log4j</artifactId><version>1.0</version></dependency>
@@ -332,8 +337,6 @@
 		<dependency><groupId>kang.tain</groupId><artifactId>scsl</artifactId><version>1.0</version></dependency>
 		<dependency><groupId>kang.tain</groupId><artifactId>tdgssconfig</artifactId><version>1.0</version></dependency>
 		<dependency><groupId>kang.tain</groupId><artifactId>terajdbc4</artifactId><version>1.0</version></dependency>
-
-
 
 	</dependencies>
 
